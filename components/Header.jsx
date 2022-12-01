@@ -1,3 +1,5 @@
+import { ImFacebook2, ImTwitter, ImYoutube } from "react-icons/im";
+import Link from "next/link";
 export default function Header() {
   return (
     <header className="bg-gray-50">
@@ -6,12 +8,20 @@ export default function Header() {
           <input className="input-text" type="text" placeholder="search" />
         </div>
         <div className="shrink w-80 sm:order-2">
-          <a>Design</a>
+          <Link href="/">
+            <span className="font-bold uppercase text-3xl">Design</span>
+          </Link>
         </div>
         <div className="flex w-96 order-3 gap-6 justify-center">
-          <a>Facebook</a>
-          <a>Twitter</a>
-          <a>Youtube</a>
+          <a>
+            <ImFacebook2 color="#888" />
+          </a>
+          <a>
+            <ImTwitter color="#888" />
+          </a>
+          <a>
+            <ImYoutube color="#888" />
+          </a>
         </div>
       </div>
     </header>
