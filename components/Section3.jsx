@@ -1,40 +1,42 @@
-import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay } from "swiper";
+
+import "swiper/css";
 import Link from "next/link";
+import Image from "next/image";
 import Author from "./_child/Author";
-
-export default function Section2() {
+export default function Section3() {
+  SwiperCore.use([Autoplay]);
   return (
-    <section className="container mx-auto md:px-20 py-20">
-      <h2 className="font-bold text-4xl py-12 text-center">Latest Posts</h2>
+    <section className="container mx-auto md:px-20 py-16">
+      <h2 className="font-bold text-4xl py-12 text-center">Most Popular</h2>
 
-      {/* grid columns */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {post()}
-        {post()}
-        {post()}
-        {post()}
-        {post()}
-        {post()}
-      </div>
+      {/* swiper */}
+      <Swiper spaceBetween={50} slidesPerView={2} autoplay={{ delay: 2000 }}>
+        <SwiperSlide>{post()}</SwiperSlide>
+        <SwiperSlide>{post()}</SwiperSlide>
+        <SwiperSlide>{post()}</SwiperSlide>
+        <SwiperSlide>{post()}</SwiperSlide>
+        <SwiperSlide>{post()}</SwiperSlide>
+      </Swiper>
     </section>
   );
 }
 
 function post() {
   return (
-    <div className="item">
+    <div className="grid">
       <div className="image">
         <Link href="/">
           <Image
             src={"/images/img1.jpg"}
-            width={500}
-            height={300}
+            width={590}
+            height={400}
             alt="image"
-            className="rounded"
           />
         </Link>
       </div>
-      <div className="info flex justify-center flex-col py-4">
+      <div className="info flex justify-center flex-col py-4 pr-10">
         <div className="category">
           <Link href="/">
             <span className="text-orange-600">Business, Travel</span>
@@ -45,7 +47,7 @@ function post() {
         </div>
         <div className="title mt-2">
           <Link href="/">
-            <span className="text-xl font-bold text-gray-800">
+            <span className="text-2xl font-bold text-gray-800 block">
               Your most unhappy customers are your greatest source of learning
             </span>
           </Link>
