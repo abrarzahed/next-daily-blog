@@ -1,34 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import Author from "./_child/Author";
-import getPosts from "../lib/helper";
+import fetcher from "../lib/fetcher";
 
 export default function Section2() {
-  getPosts().then((data) => console.log(data));
+  const { data, isLoading, isError } = fetcher("api/posts");
+  if (isLoading) {
+    return <div>Loading</div>;
+  } else if (isError) {
+    <div>Error</div>;
+  }
   return (
     <section className="container mx-auto md:px-20 py-20">
       <h2 className="font-bold text-4xl py-12 text-center">Latest Posts</h2>
 
       {/* grid columns */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {post()}
-        {post()}
-        {post()}
-        {post()}
-        {post()}
-        {post()}
+        {data && data.map((value) => <Post data={value} key={value.id} />)}
       </div>
     </section>
   );
 }
 
-function post() {
+function Post({ data }) {
+  const { id, title, subtitle, category, img, published, author } = data;
   return (
     <div className="item">
       <div className="image">
         <Link href="/">
           <Image
-            src={"/images/img1.jpg"}
+            src={img}
             width={500}
             height={300}
             alt="image"
@@ -39,26 +40,19 @@ function post() {
       <div className="info flex justify-center flex-col py-4">
         <div className="category">
           <Link href="/">
-            <span className="text-orange-600">Business, Travel</span>
+            <span className="text-orange-600">{category}</span>
           </Link>
           <Link href="/">
-            <span className="text-gray-600">- July 3 2022</span>
+            <span className="text-gray-600"> - {published}</span>
           </Link>
         </div>
         <div className="title mt-2">
           <Link href="/">
-            <span className="text-xl font-bold text-gray-800">
-              Your most unhappy customers are your greatest source of learning
-            </span>
+            <span className="text-xl font-bold text-gray-800">{title}</span>
           </Link>
         </div>
-        <p className="text-gray-500 py-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non unde
-          atque harum, quod ad veritatis consequuntur, est ducimus ipsa
-          distinctio doloribus hic expedita culpa obcaecati eius iusto!
-          Consequatur, at fuga.
-        </p>
-        <Author />
+        <p className="text-gray-500 py-3">{subtitle}</p>
+        {author ? <Author /> : <></>}
       </div>
     </div>
   );

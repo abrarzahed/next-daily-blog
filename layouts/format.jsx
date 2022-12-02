@@ -9,7 +9,7 @@ export default function format({ children }) {
         <title>Daily Next Blog</title>
       </Head>
       <Header />
-      <main>{children}</main>
+      <main className="px-4">{children}</main>
       <Footer />
     </>
   );
