@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import Author from "./_child/Author";
+import getPosts from "../lib/helper";
 
 export default function Section2() {
+  getPosts().then((data) => console.log(data));
   return (
     <section className="container mx-auto md:px-20 py-20">
       <h2 className="font-bold text-4xl py-12 text-center">Latest Posts</h2>

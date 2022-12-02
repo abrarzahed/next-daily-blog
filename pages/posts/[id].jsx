@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Author from "../../components/_child/Author";
+import RelatedPost from "../../components/_child/RelatedPost";
 
 export default function SinglePost() {
   const router = useRouter();
@@ -48,6 +49,7 @@ export default function SinglePost() {
             corporis esse quo?
           </p>
         </div>
+        <RelatedPost />
       </div>
     </section>
   );
