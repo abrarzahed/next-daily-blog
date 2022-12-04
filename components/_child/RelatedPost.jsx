@@ -1,26 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
-import fetcher from "../../lib/fetcher";
 import Author from "./Author";
-import Error from "./Error";
-import Spinner from "./Spinner";
+// import fetcher from "../../lib/fetcher";
+// import Error from "./Error";
+// import Spinner from "./Spinner";
 
 export default function RelatedPost() {
-  const { data, isLoading, isError } = fetcher("api/posts");
+  // const { data, isLoading, isError } = fetcher("api/posts");
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-  if (isError) {
-    return <Error />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
+  // if (isError) {
+  //   return <Error />;
+  // }
   return (
     <section className="pt-20">
       <h2 className="font-bold mb-5 text-2xl">Related</h2>
       <div className="flex flex-col gap-10">
-        {data.map((value) => (
+        {/* {data.map((value) => (
           <Post {...value} key={value.id} />
-        ))}
+        ))} */}
+        <h1>HI</h1>
       </div>
     </section>
   );
