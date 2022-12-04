@@ -1,9 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay } from "swiper";
 
-// import fetcher from "../lib/fetcher";
-// import Spinner from "./_child/Spinner";
-// import Error from "./_child/Error";
+import fetcher from "../lib/fetcher";
+import Spinner from "./_child/Spinner";
+import Error from "./_child/Error";
 
 import "swiper/css";
 import Link from "next/link";
@@ -11,23 +11,23 @@ import Image from "next/image";
 import Author from "./_child/Author";
 
 export default function Section3() {
-  // const { data, isLoading, isError } = fetcher("api/popular");
+  const { data, isLoading, isError } = fetcher("api/popular");
 
-  // SwiperCore.use([Autoplay]);
+  SwiperCore.use([Autoplay]);
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-  // if (isError) {
-  //   return <Error />;
-  // }
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <section className="container mx-auto md:px-20 py-16">
       <h2 className="font-bold text-4xl py-12 text-center">Most Popular</h2>
 
       {/* swiper */}
-      {/* <Swiper
+      <Swiper
         spaceBetween={50}
         autoplay={{ delay: 2000 }}
         breakpoints={{
@@ -42,8 +42,7 @@ export default function Section3() {
             <Post data={value} />
           </SwiperSlide>
         ))}
-      </Swiper> */}
-      <h1>HI</h1>
+      </Swiper>
     </section>
   );
 }

@@ -3,22 +3,21 @@ import { useRouter } from "next/router";
 import Author from "../../components/_child/Author";
 import RelatedPost from "../../components/_child/RelatedPost";
 
-// import fetcher from "../../lib/fetcher";
-// import Spinner from "../../components/_child/Spinner";
-// import Error from "../../components/_child/Error";
+import fetcher from "../../lib/fetcher";
+import Spinner from "../../components/_child/Spinner";
+import Error from "../../components/_child/Error";
 
 export default function SinglePost() {
   const router = useRouter();
   const { id } = router.query;
-  // const { data, isLoading, isError } = fetcher(`api/posts/${id}`);
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-  // if (isError) {
-  //   return <Error />;
-  // }
-  // return <Article {...data} />;
-  return <h1>HI</h1>;
+  const { data, isLoading, isError } = fetcher(`api/posts/${id}`);
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (isError) {
+    return <Error />;
+  }
+  return <Article {...data} />;
 }
 
 export function Article({
@@ -56,29 +55,29 @@ export function Article({
   );
 }
 
-// export async function getStaticProps({ params }) {
-//   const res = await fetch(`http://localhost:3000/api/posts/`);
-//   const posts = await res.json();
-//   const data = posts.find((value) => value.id == params.id);
-//   return {
-//     props: data,
-//   };
-// }
+export async function getStaticProps({ params }) {
+  const res = await fetch(`https://next-daily-blog-4tm8.vercel.app/api/posts/`);
+  const posts = await res.json();
+  const data = posts.find((value) => value.id == params.id);
+  return {
+    props: data,
+  };
+}
 
-// export async function getStaticPaths() {
-//   const res = await fetch(`http://localhost:3000/api/posts/`);
-//   const posts = await res.json();
+export async function getStaticPaths() {
+  const res = await fetch(`https://next-daily-blog-4tm8.vercel.app/api/posts/`);
+  const posts = await res.json();
 
-//   const paths = posts.map((post) => {
-//     return {
-//       params: {
-//         id: String(post.id),
-//       },
-//     };
-//   });
+  const paths = posts.map((post) => {
+    return {
+      params: {
+        id: String(post.id),
+      },
+    };
+  });
 
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
+  return {
+    paths,
+    fallback: false,
+  };
+}
