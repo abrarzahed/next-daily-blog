@@ -27,7 +27,7 @@ export default function Section1() {
     return <Error />;
   }
   return (
-    <section className="py-16 section-1" style={bg}>
+    <section className="py-16 hero section-1" style={bg}>
       <div className="container mx-auto md:px-20">
         <h1 className="font-bold text-4xl pb-12 text-center">Trending</h1>
         <Swiper slidesPerView={1} autoplay={{ delay: 2000 }}>
