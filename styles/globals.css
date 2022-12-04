@@ -41,8 +41,10 @@ a {
 
 @media (max-width: 768px) {
   section.hero {
+    margin-top: 2rem !important;
     background: #ddd !important;
-    padding-inline: 1rem !important;
+    padding-inline: 2rem !important;
     border-radius: 20px !important;
+    padding-block: 2rem !important;
   }
 }
