@@ -2,13 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import Author from "./_child/Author";
 import fetcher from "../lib/fetcher";
+import Spinner from "./_child/Spinner";
+import Error from "./_child/Error";
 
 export default function Section2() {
   const { data, isLoading, isError } = fetcher("api/posts");
   if (isLoading) {
-    return <div>Loading</div>;
-  } else if (isError) {
-    <div>Error</div>;
+    return <Spinner />;
+  }
+  if (isError) {
+    return <Error />;
   }
   return (
     <section className="container mx-auto md:px-20 py-20">
@@ -39,20 +42,20 @@ function Post({ data }) {
       </div>
       <div className="info flex justify-center flex-col py-4">
         <div className="category">
-          <Link href="/">
+          <Link href={`/posts/${id}`}>
             <span className="text-orange-600">{category}</span>
           </Link>
-          <Link href="/">
+          <Link href={`/posts/${id}`}>
             <span className="text-gray-600"> - {published}</span>
           </Link>
         </div>
         <div className="title mt-2">
-          <Link href="/">
+          <Link href={`/posts/${id}`}>
             <span className="text-xl font-bold text-gray-800">{title}</span>
           </Link>
         </div>
         <p className="text-gray-500 py-3">{subtitle}</p>
-        {author ? <Author /> : <></>}
+        {author ? <Author {...author} /> : <></>}
       </div>
     </div>
   );

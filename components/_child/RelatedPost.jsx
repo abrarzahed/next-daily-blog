@@ -1,28 +1,37 @@
 import Image from "next/image";
 import Link from "next/link";
+import fetcher from "../../lib/fetcher";
 import Author from "./Author";
+import Error from "./Error";
+import Spinner from "./Spinner";
 
 export default function RelatedPost() {
+  const { data, isLoading, isError } = fetcher("api/posts");
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (isError) {
+    return <Error />;
+  }
   return (
     <section className="pt-20">
       <h2 className="font-bold mb-5 text-2xl">Related</h2>
       <div className="flex flex-col gap-10">
-        {post()}
-        {post()}
-        {post()}
-        {post()}
-        {post()}
+        {data.map((value) => (
+          <Post {...value} key={value.id} />
+        ))}
       </div>
     </section>
   );
 }
 
-function post() {
+function Post({ id, title, subtitle, category, img, published, author }) {
   return (
     <div className="flex gap-5">
-      <Link href="/">
+      <Link href={`/posts/${id}`}>
         <Image
-          src={"/images/img2.jpg"}
+          src={img}
           width={300}
           height={350}
           alt="image"
@@ -31,21 +40,21 @@ function post() {
       </Link>
       <div className="info flex flex-col justify-center">
         <div className="category">
-          <Link href="/">
-            <span className="text-orange-600">Business, Travel</span>
+          <Link href={`/posts/${id}`}>
+            <span className="text-orange-600">{category}</span>
           </Link>
-          <Link href="/">
-            <span className="text-gray-600">- July 3 2022</span>
+          <Link href={`/posts/${id}`}>
+            <span className="text-gray-600">- {published}</span>
           </Link>
         </div>
         <div className="title">
-          <Link href="/">
+          <Link href={`/posts/${id}`}>
             <span className="text-xl font-bold text-gray-800 block">
-              Your most unhappy customers are your greatest source of learning
+              {title}
             </span>
           </Link>
         </div>
-        <Author />
+        {author ? <Author {...author} /> : <></>}
       </div>
     </div>
   );
